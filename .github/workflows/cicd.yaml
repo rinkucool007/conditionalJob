@@ -21,7 +21,6 @@ jobs:
       github.ref == 'refs/heads/development' ||
       (github.ref != 'refs/heads/master' &&
       github.ref != 'refs/heads/development' &&
-      github.event_name == 'push' &&
       contains(github.event.head_commit.message, 'Folder1'))
     steps:
       - name: Checkout code
@@ -39,7 +38,6 @@ jobs:
       github.ref == 'refs/heads/development' ||
       (github.ref != 'refs/heads/master' &&
       github.ref != 'refs/heads/development' &&
-      github.event_name == 'push' &&
       contains(github.event.head_commit.message, 'Folder2'))
     steps:
       - name: Checkout code
@@ -57,7 +55,6 @@ jobs:
       github.ref == 'refs/heads/development' ||
       (github.ref != 'refs/heads/master' &&
       github.ref != 'refs/heads/development' &&
-      github.event_name == 'push' &&
       contains(github.event.head_commit.message, 'Folder3'))
     steps:
       - name: Checkout code
@@ -75,7 +72,6 @@ jobs:
       github.ref == 'refs/heads/development' ||
       (github.ref != 'refs/heads/master' &&
       github.ref != 'refs/heads/development' &&
-      github.event_name == 'push' &&
       contains(github.event.head_commit.message, 'Folder4'))
     steps:
       - name: Checkout code
