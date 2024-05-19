@@ -23,7 +23,8 @@ jobs:
           ref: ${{ github.event.before }}
       - name: Run Folder1 job
         run: |
-          echo "Running job for Folder1"
+          echo "Running Folder1 job"
+          # Your build/test commands for Folder1
 
   Folder2:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/feature/*' && contains(github.event.paths, 'Folder2/') }}
@@ -35,7 +36,8 @@ jobs:
           ref: ${{ github.event.before }}
       - name: Run Folder2 job
         run: |
-          echo "Running job for Folder1"
+          echo "Running Folder2 job"
+          # Your build/test commands for Folder2
 
   Folder3:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/feature/*' && contains(github.event.paths, 'Folder3/') }}
@@ -47,7 +49,8 @@ jobs:
           ref: ${{ github.event.before }}
       - name: Run Folder3 job
         run: |
-          echo "Running job for Folder1"
+          echo "Running Folder3 job"
+          # Your build/test commands for Folder3
 
   Folder4:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/feature/*' && contains(github.event.paths, 'Folder4/') }}
@@ -59,4 +62,5 @@ jobs:
           ref: ${{ github.event.before }}
       - name: Run Folder4 job
         run: |
-          echo "Running job for Folder1"
+          echo "Running Folder4 job"
+          # Your build/test commands for Folder4
