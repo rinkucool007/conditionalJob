@@ -17,7 +17,7 @@ jobs:
     if: |
       github.ref == 'refs/heads/master' ||
       github.ref == 'refs/heads/development' ||
-      (startsWith(github.ref, 'refs/heads/feature/') && contains(github.event.head_commit.modified, 'Folder1/'))
+      (startsWith(github.ref, 'refs/heads/feature/') && contains(join(github.event.push.commits.*.modified, ' '), 'Folder1/'))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
