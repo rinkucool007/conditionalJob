@@ -28,7 +28,7 @@ jobs:
 
       - name: Check for code changes in Folder1
         run: |
-          if git diff --name-only $BEFORE $SHA | grep -q '^Folder1'; then
+          if git diff --name-only $BEFORE $SHA | grep -q '^Folder1/'; then
             echo "Code changes detected in Folder1."
           else
             echo "No code changes in Folder1."
@@ -36,13 +36,14 @@ jobs:
 
   check_changes_folder2:
     runs-on: ubuntu-latest
+    needs: debug
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Check for code changes in Folder2
         run: |
-          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q '^Folder2'; then
+          if git diff --name-only $BEFORE $SHA | grep -q '^Folder2/'; then
             echo "Code changes detected in Folder2."
           else
             echo "No code changes in Folder2."
@@ -50,13 +51,14 @@ jobs:
 
   check_changes_folder3:
     runs-on: ubuntu-latest
+    needs: debug
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Check for code changes in Folder3
         run: |
-          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q '^Folder3'; then
+          if git diff --name-only $BEFORE $SHA | grep -q '^Folder3/'; then
             echo "Code changes detected in Folder3."
           else
             echo "No code changes in Folder3."
@@ -64,13 +66,14 @@ jobs:
 
   check_changes_folder4:
     runs-on: ubuntu-latest
+    needs: debug
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Check for code changes in Folder4
         run: |
-          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q '^Folder4'; then
+          if git diff --name-only $BEFORE $SHA | grep -q '^Folder4/'; then
             echo "Code changes detected in Folder4."
           else
             echo "No code changes in Folder4."
