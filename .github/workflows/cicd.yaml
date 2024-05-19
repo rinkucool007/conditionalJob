@@ -5,62 +5,49 @@ on:
     branches:
       - master
       - development
-      - 'feature/*'
-    paths:
-      - 'Folder1/**'
-      - 'Folder2/**'
-      - 'Folder3/**'
-      - 'Folder4/**'
+      - feature/*  # Trigger for feature branches
+  pull_request:  # Optional: Trigger for pull requests (consider security implications)
 
 jobs:
-  Folder1:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/feature/*' && contains(github.event.paths, 'Folder1/') }}
+  build-and-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        folder: [Folder1, Folder2, Folder3, Folder4]
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.before }}
-      - name: Run Folder1 job
-        run: |
-          echo "Running Folder1 job"
-          # Your build/test commands for Folder1
+      - uses: actions/checkout@v3
 
-  Folder2:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/feature/*' && contains(github.event.paths, 'Folder2/') }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.before }}
-      - name: Run Folder2 job
+      - name: Identify changed files
+        id: changed_files
         run: |
-          echo "Running Folder2 job"
-          # Your build/test commands for Folder2
+          git diff --name-only ${{ github.sha }} HEAD > changed_files.txt
 
-  Folder3:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/feature/*' && contains(github.event.paths, 'Folder3/') }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.before }}
-      - name: Run Folder3 job
+      - name: Check for changes in specific folder
         run: |
-          echo "Running Folder3 job"
-          # Your build/test commands for Folder3
+          if grep -qE "^${{ matrix.folder }}/" changed_files.txt; then
+            echo "Changes detected in ${{ matrix.folder }}"
+          else
+            echo "No changes detected in ${{ matrix.folder }}"
+            exit 1  # Skip this job for unchanged folders
+          fi
 
-  Folder4:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/feature/*' && contains(github.event.paths, 'Folder4/') }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.before }}
-      - name: Run Folder4 job
+      - name: Check branch name (optional)
+        if: ${{ github.ref == 'refs/heads/feature/*' }}  # Only for feature branches
         run: |
-          echo "Running Folder4 job"
-          # Your build/test commands for Folder4
+          echo "Running on feature branch: ${{ github.ref }}"
+
+      - name: Setup (replace with your specific setup steps)
+        # ...
+
+      - name: Build (replace with your build command)
+        run: |
+          cd ${{ matrix.folder }}
+          # ...
+
+      - name: Test (replace with your test commands)
+        run: |
+          cd ${{ matrix.folder }}
+          # ...
+
+  # Optional: Additional jobs for deployment, security scans, etc.
+
