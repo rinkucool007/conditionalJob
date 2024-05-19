@@ -1,4 +1,4 @@
-name: CI
+name: Conditional Pipelines
 
 on:
   push:
@@ -6,52 +6,57 @@ on:
       - master
       - development
       - 'feature/*'
+    paths:
+      - 'Folder1/**'
+      - 'Folder2/**'
+      - 'Folder3/**'
+      - 'Folder4/**'
 
 jobs:
-  Folder1:
-    if: github.ref == github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' && contains(github.event.head_commit.message, 'Folder1/')
+  job1:
+    name: Folder1 Job
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' && github.event.head_commit.message contains 'Folder1/')
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+        with:
+          path: Folder1
       - name: Run Folder1 specific job
-        run: |
-          echo "Running Folder1 job"
-          # Add your Folder1 specific commands here
+        run: echo "Running Folder1 job"
 
-  Folder2:
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' && contains(github.event.head_commit.message, 'Folder2/'))
+  job2:
+    name: Folder2 Job
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' && github.event.head_commit.message contains 'Folder2/')
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+        with:
+          path: Folder2
       - name: Run Folder2 specific job
-        run: |
-          echo "Running Folder2 job"
-          # Add your Folder2 specific commands here
+        run: echo "Running Folder2 job"
 
-  Folder3:
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' && contains(github.event.head_commit.message, 'Folder3/'))
+  job3:
+    name: Folder3 Job
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' && github.event.head_commit.message contains 'Folder3/')
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+        with:
+          path: Folder3
       - name: Run Folder3 specific job
-        run: |
-          echo "Running Folder3 job"
-          # Add your Folder3 specific commands here
+        run: echo "Running Folder3 job"
 
-  Folder4:
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' && contains(github.event.head_commit.message, 'Folder4/'))
+  job4:
+    name: Folder4 Job
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' && github.event.head_commit.message contains 'Folder4/')
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+        with:
+          path: Folder4
       - name: Run Folder4 specific job
-        run: |
-          echo "Running Folder4 job"
-          # Add your Folder4 specific commands here
+        run: echo "Running Folder4 job"
