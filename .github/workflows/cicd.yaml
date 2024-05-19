@@ -11,7 +11,9 @@ on:
 
 jobs:
   Folder1:
-    if: "github.event_name == 'push' && contains(github.event.head_commit.message, 'Folder1') || github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master'"
+    if: >
+      (github.event_name == 'push' && github.ref != 'refs/heads/development' && github.ref != 'refs/heads/master' && (contains(join(github.event.commits.*.modified), 'Folder1/') || contains(join(github.event.commits.*.added), 'Folder1/') || contains(join(github.event.commits.*.removed), 'Folder1/')))
+      || (github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -20,7 +22,9 @@ jobs:
         run: echo "Running job for Folder1"
 
   Folder2:
-    if: "github.event_name == 'push' && contains(github.event.head_commit.message, 'Folder2') || github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master'"
+    if: >
+      (github.event_name == 'push' && github.ref != 'refs/heads/development' && github.ref != 'refs/heads/master' && (contains(join(github.event.commits.*.modified), 'Folder2/') || contains(join(github.event.commits.*.added), 'Folder2/') || contains(join(github.event.commits.*.removed), 'Folder2/')))
+      || (github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -29,7 +33,9 @@ jobs:
         run: echo "Running job for Folder2"
 
   Folder3:
-    if: "github.event_name == 'push' && contains(github.event.head_commit.message, 'Folder3') || github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master'"
+    if: >
+      (github.event_name == 'push' && github.ref != 'refs/heads/development' && github.ref != 'refs/heads/master' && (contains(join(github.event.commits.*.modified), 'Folder3/') || contains(join(github.event.commits.*.added), 'Folder3/') || contains(join(github.event.commits.*.removed), 'Folder3/')))
+      || (github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -38,7 +44,9 @@ jobs:
         run: echo "Running job for Folder3"
 
   Folder4:
-    if: "github.event_name == 'push' && contains(github.event.head_commit.message, 'Folder4') || github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master'"
+    if: >
+      (github.event_name == 'push' && github.ref != 'refs/heads/development' && github.ref != 'refs/heads/master' && (contains(join(github.event.commits.*.modified), 'Folder4/') || contains(join(github.event.commits.*.added), 'Folder4/') || contains(join(github.event.commits.*.removed), 'Folder4/')))
+      || (github.ref == 'refs/heads/development' || github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
