@@ -1,0 +1,69 @@
+name: Conditional Jobs
+
+on:
+  push:
+    branches:
+      - feature/*
+      - development
+      - master
+
+jobs:
+  job1:
+    if: >
+      (contains(github.ref, 'refs/heads/feature/') && (contains(github.event.commits.*.modified, 'Folder1/') ||
+      contains(github.event.commits.*.added, 'Folder1/') ||
+      contains(github.event.commits.*.removed, 'Folder1/'))) ||
+      github.ref == 'refs/heads/development' ||
+      github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run job for Folder1
+        run: echo "Running job for Folder1"
+        # Add your actual build/test steps here
+
+  job2:
+    if: >
+      (contains(github.ref, 'refs/heads/feature/') && (contains(github.event.commits.*.modified, 'Folder2/') ||
+      contains(github.event.commits.*.added, 'Folder2/') ||
+      contains(github.event.commits.*.removed, 'Folder2/'))) ||
+      github.ref == 'refs/heads/development' ||
+      github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run job for Folder2
+        run: echo "Running job for Folder2"
+        # Add your actual build/test steps here
+
+  job3:
+    if: >
+      (contains(github.ref, 'refs/heads/feature/') && (contains(github.event.commits.*.modified, 'Folder3/') ||
+      contains(github.event.commits.*.added, 'Folder3/') ||
+      contains(github.event.commits.*.removed, 'Folder3/'))) ||
+      github.ref == 'refs/heads/development' ||
+      github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run job for Folder3
+        run: echo "Running job for Folder3"
+        # Add your actual build/test steps here
+
+  job4:
+    if: >
+      (contains(github.ref, 'refs/heads/feature/') && (contains(github.event.commits.*.modified, 'Folder4/') ||
+      contains(github.event.commits.*.added, 'Folder4/') ||
+      contains(github.event.commits.*.removed, 'Folder4/'))) ||
+      github.ref == 'refs/heads/development' ||
+      github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run job for Folder4
+        run: echo "Running job for Folder4"
+        # Add your actual build/test steps here
