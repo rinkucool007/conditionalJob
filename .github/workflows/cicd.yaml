@@ -1,66 +1,63 @@
-name: CI
+name: Check Code Changes
 
 on:
   push:
     branches:
-      - master
-      - development
-      - 'feature/*'
-    paths:
-      - 'Folder1/**'
-      - 'Folder2/**'
-      - 'Folder3/**'
-      - 'Folder4/**'
+      - main
 
 jobs:
-  Folder1:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/feature/*' && contains(github.event.paths, 'Folder1/') }}
+  check_changes_folder1:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.before }}
-      - name: Run Folder1 job
-        run: |
-          echo "Running Folder1 job"
-          # Your build/test commands for Folder1
 
-  Folder2:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/feature/*' && contains(github.event.paths, 'Folder2/') }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.before }}
-      - name: Run Folder2 job
+      - name: Check for code changes in Folder1
         run: |
-          echo "Running Folder2 job"
-          # Your build/test commands for Folder2
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q '^Folder1'; then
+            echo "Code changes detected in Folder1."
+          else
+            echo "No code changes in Folder1."
+          fi
 
-  Folder3:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/feature/*' && contains(github.event.paths, 'Folder3/') }}
+  check_changes_folder2:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.before }}
-      - name: Run Folder3 job
-        run: |
-          echo "Running Folder3 job"
-          # Your build/test commands for Folder3
 
-  Folder4:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/feature/*' && contains(github.event.paths, 'Folder4/') }}
+      - name: Check for code changes in Folder2
+        run: |
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q '^Folder2'; then
+            echo "Code changes detected in Folder2."
+          else
+            echo "No code changes in Folder2."
+          fi
+
+  check_changes_folder3:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.before }}
-      - name: Run Folder4 job
+
+      - name: Check for code changes in Folder3
         run: |
-          echo "Running Folder4 job"
-          # Your build/test commands for Folder4
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q '^Folder3'; then
+            echo "Code changes detected in Folder3."
+          else
+            echo "No code changes in Folder3."
+          fi
+
+  check_changes_folder4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check for code changes in Folder4
+        run: |
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q '^Folder4'; then
+            echo "Code changes detected in Folder4."
+          else
+            echo "No code changes in Folder4."
+          fi
