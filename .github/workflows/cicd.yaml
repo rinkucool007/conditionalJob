@@ -3,7 +3,9 @@ name: Check Code Changes
 on:
   push:
     branches:
-      - main
+      - feature/*
+      - development
+      - master
 
 jobs:
   check_changes_folder1:
