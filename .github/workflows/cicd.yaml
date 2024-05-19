@@ -1,53 +1,58 @@
-name: CI
+name: Conditional Jobs
 
 on:
   push:
     branches:
       - master
       - development
-      - feature/*  # Trigger for feature branches
-  pull_request:  # Optional: Trigger for pull requests (consider security implications)
+      - feature/*
+    paths:
+      - 'Folder1/**'
+      - 'Folder2/**'
+      - 'Folder3/**'
+      - 'Folder4/**'
 
 jobs:
-  build-and-test:
+  folder1_job:
+    if: |
+      github.ref == 'refs/heads/master' ||
+      github.ref == 'refs/heads/development' ||
+      (startsWith(github.ref, 'refs/heads/feature/') && contains(github.event.head_commit.modified, 'Folder1/'))
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        folder: [Folder1, Folder2, Folder3, Folder4]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
+      - name: Run Folder1 job
+        run: echo "Running job for Folder1"
 
-      - name: Identify changed files
-        id: changed_files
-        run: |
-          git diff --name-only ${{ github.sha }} HEAD > changed_files.txt
+  folder2_job:
+    if: |
+      github.ref == 'refs/heads/master' ||
+      github.ref == 'refs/heads/development' ||
+      (startsWith(github.ref, 'refs/heads/feature/') && contains(github.event.head_commit.modified, 'Folder2/'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Folder2 job
+        run: echo "Running job for Folder2"
 
-      - name: Check for changes in specific folder
-        run: |
-          if grep -qE "^${{ matrix.folder }}/" changed_files.txt; then
-            echo "Changes detected in ${{ matrix.folder }}"
-          else
-            echo "No changes detected in ${{ matrix.folder }}"
-            exit 1  # Skip this job for unchanged folders
-          fi
+  folder3_job:
+    if: |
+      github.ref == 'refs/heads/master' ||
+      github.ref == 'refs/heads/development' ||
+      (startsWith(github.ref, 'refs/heads/feature/') && contains(github.event.head_commit.modified, 'Folder3/'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Folder3 job
+        run: echo "Running job for Folder3"
 
-      - name: Check branch name (optional)
-        if: ${{ github.ref == 'refs/heads/feature/*' }}  # Only for feature branches
-        run: |
-          echo "Running on feature branch: ${{ github.ref }}"
-
-      - name: Setup (replace with your specific setup steps)
-        # ...
-
-      - name: Build (replace with your build command)
-        run: |
-          cd ${{ matrix.folder }}
-          # ...
-
-      - name: Test (replace with your test commands)
-        run: |
-          cd ${{ matrix.folder }}
-          # ...
-
-  # Optional: Additional jobs for deployment, security scans, etc.
-
+  folder4_job:
+    if: |
+      github.ref == 'refs/heads/master' ||
+      github.ref == 'refs/heads/development' ||
+      (startsWith(github.ref, 'refs/heads/feature/') && contains(github.event.head_commit.modified, 'Folder4/'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run Folder4 job
+        run: echo "Running job for Folder4"
