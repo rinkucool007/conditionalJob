@@ -16,7 +16,12 @@ jobs:
   job1:
     name: Folder1 Job
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' && github.event.head_commit.message contains 'Folder1/')
+    if: |
+      github.ref == 'refs/heads/master' ||
+      github.ref == 'refs/heads/development' ||
+      (github.ref != 'refs/heads/master' &&
+      github.ref != 'refs/heads/development' &&
+      contains(github.event.head_commit.message, 'Folder1'))
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -28,7 +33,12 @@ jobs:
   job2:
     name: Folder2 Job
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' && github.event.head_commit.message contains 'Folder2/')
+    if: |
+      github.ref == 'refs/heads/master' ||
+      github.ref == 'refs/heads/development' ||
+      (github.ref != 'refs/heads/master' &&
+      github.ref != 'refs/heads/development' &&
+      contains(github.event.head_commit.message, 'Folder2'))
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -40,7 +50,12 @@ jobs:
   job3:
     name: Folder3 Job
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' && github.event.head_commit.message contains 'Folder3/')
+    if: |
+      github.ref == 'refs/heads/master' ||
+      github.ref == 'refs/heads/development' ||
+      (github.ref != 'refs/heads/master' &&
+      github.ref != 'refs/heads/development' &&
+      contains(github.event.head_commit.message, 'Folder3'))
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -52,7 +67,12 @@ jobs:
   job4:
     name: Folder4 Job
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' && github.event.head_commit.message contains 'Folder4/')
+    if: |
+      github.ref == 'refs/heads/master' ||
+      github.ref == 'refs/heads/development' ||
+      (github.ref != 'refs/heads/master' &&
+      github.ref != 'refs/heads/development' &&
+      contains(github.event.head_commit.message, 'Folder4'))
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
