@@ -9,7 +9,7 @@ on:
 
 jobs:
   Folder1:
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' && contains(github.event.head_commit.message, 'Folder1/'))
+    if: github.ref == github.ref != 'refs/heads/master' && github.ref != 'refs/heads/development' && contains(github.event.head_commit.message, 'Folder1/')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
